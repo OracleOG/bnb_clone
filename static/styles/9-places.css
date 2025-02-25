@@ -1,0 +1,38 @@
+.place_amenities, .reviews {
+    margin-top: 40px;
+}
+
+.place_amenities h2, .reviews h2 {
+    font-size: 16px;
+    border-bottom: 1px solid #DDDDDD;
+    padding-bottom: 5px;
+}
+
+.place_amenities ul, .reviews ul {
+    list-style: none;
+    padding: 0;
+}
+
+.place_amenities ul li {
+    margin-bottom: 5px;
+}
+
+.reviews ul li {
+    margin-bottom: 10px;
+}
+
+.reviews h3 {
+    font-size: 14px;
+    margin: 0;
+}
+
+.reviews p {
+    font-size: 12px;
+    margin: 5px 0 0 0;
+}
+
+.toggle_reviews {
+    cursor: pointer;
+    color: #007bff;
+    margin-left: 10px;
+}
