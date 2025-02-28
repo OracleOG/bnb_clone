@@ -16,7 +16,10 @@ import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 import pymysql
+from dotenv import load_dotenv
 pymysql.install_as_MySQLdb()
+
+load_dotenv()
 
 classes = {"Amenity": Amenity, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
@@ -32,15 +35,17 @@ class DBStorage:
         HBNB_MYSQL_USER = getenv('HBNB_MYSQL_USER')
         HBNB_MYSQL_PWD = getenv('HBNB_MYSQL_PWD')
         HBNB_MYSQL_HOST = getenv('HBNB_MYSQL_HOST')
+        HBNB_MYSQL_PORT = getenv('HBNB_MYSQL_PORT')  # Get port from .env
         HBNB_MYSQL_DB = getenv('HBNB_MYSQL_DB')
         HBNB_ENV = getenv('HBNB_ENV')
-        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
-                                      format(HBNB_MYSQL_USER,
-                                             HBNB_MYSQL_PWD,
-                                             HBNB_MYSQL_HOST,
-                                             HBNB_MYSQL_DB))
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}:{}/{}'.
+                                      format(HBNB_MYSQL_USER, HBNB_MYSQL_PWD,
+                   HBNB_MYSQL_HOST, HBNB_MYSQL_PORT, HBNB_MYSQL_DB), 
+                   pool_pre_ping=True)
+        print("DBStorage: Connecting to database...", self.__engine)
         if HBNB_ENV == "test":
             Base.metadata.drop_all(self.__engine)
+
 
     def all(self, cls=None):
         """query on the current database session"""
