@@ -3,6 +3,8 @@ $(document).ready(function() {
     let states = {};
     let cities = {};
 
+    let url = 'https://bnbapi-production.up.railway.app'
+
     // Debounce function to limit rapid updates
     function debounce(func, wait) {
         let timeout;
@@ -76,7 +78,7 @@ $(document).ready(function() {
     }, 200)); // 200ms debounce
 
     // Check API status
-    $.get('http://0.0.0.0:5001/api/v1/status/', function(data) {
+    $.get(`${url}/api/v1/status/`, function(data) {
         if (data.status === 'OK') { 
             $('#api_status').addClass('available');
         } else {
@@ -97,7 +99,7 @@ $(document).ready(function() {
     function fetchPlaces(filters) {
         showLoadingBar();
         $.ajax({    
-            url: 'http://0.0.0.0:5001/api/v1/places_search/',
+            url: `${url}/api/v1/places_search/`,
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(filters),
@@ -156,7 +158,7 @@ $(document).ready(function() {
 
         if ($span.text() === 'show') {
             // Fetch reviews
-            $.get(`http://0.0.0.0:5001/api/v1/places/${placeId}/reviews`, function(reviewData) {
+            $.get(`${url}/api/v1/places/${placeId}/reviews`, function(reviewData) {
                 let reviewList = '';
                 if (reviewData.length > 0) {
                     reviewData.forEach(review => {
